@@ -1,30 +1,25 @@
 import React from "react";
 import ProductCard from "../components/ProductCard";
-import { useProducts } from "../context/ProductProvider";
+import { useProducts } from "../Context/ProductProvider";
 
 const Cart = () => {
-  const {
-    state: { cart, loading, error },
-  } = useProducts();
-
+  const { state: { cart, error, loading } } = useProducts();
   let content;
 
   if (loading) {
-    content = <p>Loading</p>;
+    content = <p>Loading..</p>
   }
 
   if (error) {
-    content = <p>Something went wrong</p>;
+    content = <p>Something went wrong!</p>
   }
 
   if (!loading && !error && cart.length === 0) {
-    content = <p>Nothing to show, product list is empty</p>;
+    content = <p>Sorry, Your cart is empty</p>
   }
 
   if (!loading && !error && cart.length) {
-    content = cart.map((product) => (
-      <ProductCard key={product._id} product={product} />
-    ));
+    content = cart.map(product => <ProductCard key={product._id} product={product} />);
   }
 
   return (
